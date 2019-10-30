@@ -1,11 +1,35 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import { Dimensions, View } from 'react-native';
 import HomeScreen from '../views/home';
+import ApartmentScreen from '../views/apartment';
+import ApartmentVideoScreen from '../views/apartmentVideoPage';
+import FlashMessage from 'react-native-flash-message';
 
-const AppNavigator = createStackNavigator({
-  Home: HomeScreen,
-});
+import { createDrawerNavigator } from 'react-navigation-drawer';
 
+const width = Dimensions * 0.8;
+
+const DrawerConfig = {
+  initialRouteName: 'Home',
+};
+const AppNavigator = createDrawerNavigator(
+  {
+    Home: HomeScreen,
+    'Add Apartment': ApartmentScreen,
+    'Upload Video': ApartmentVideoScreen,
+  },
+  DrawerConfig,
+);
 const AppContainer = createAppContainer(AppNavigator);
-export default () => <AppContainer />;
+
+const Routes = () => {
+  return (
+    <Fragment>
+      <AppContainer />
+      <FlashMessage position="top" />
+    </Fragment>
+  );
+};
+
+export default Routes;
